@@ -1,0 +1,12 @@
+name: MiningOffhands
+main: me.harry.miningoffhands.MiningOffhands
+author: harry8668
+version: 1.0
+api-version: 1.20
+commands:
+  setdoubledropsitem:
+    description: set you're held item to have double drops in offhand
+  settripledropsitem:
+    description: set you're held item to have triple drops in offhand
+  setquaddropsitem:
+    description: set you're held item to have quad drops in offhand

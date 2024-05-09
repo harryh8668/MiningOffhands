@@ -1,0 +1,8 @@
+MiningOffhands:
+  Blocks:
+    MoreDropsBlocks:
+      - DIAMOND_ORE
+      - EMERALD_ORE
+      - IRON_ORE
+      - GOLD_ORE
+      - COAL_ORE
