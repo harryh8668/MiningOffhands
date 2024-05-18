@@ -20,10 +20,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class MiningListeners implements Listener {
 
+    public static final List<Location> placedBlocks = new ArrayList<>();
+
     private MiningOffhands plugin;
 
     public MiningListeners(MiningOffhands plugin) {
         this.plugin = plugin;
+    }
+
+    @EventHandler
+    public void onPlace(BlockPlaceEvent event) {
+        placedBlocks.add(event.getBlock().getLocation());
     }
 
     @EventHandler
@@ -32,7 +39,6 @@ public class MiningListeners implements Listener {
         Player player = event.getPlayer();
         ItemStack offhand = player.getInventory().getItemInOffHand();
         if (offhand.getType() == Material.AIR) return;
-
         AtomicInteger multiplier = new AtomicInteger(1);
         NBT.get(offhand, nbt -> {
             if (nbt.hasTag("offhand-multiplier")) {
@@ -41,17 +47,24 @@ public class MiningListeners implements Listener {
             }
         });
 
+
+
         if (multiplier.get() <= 1) return;
+
         List<String> configList = this.plugin.getConfig().getStringList("MiningOffhands.Blocks.MoreDropsBlocks");
         String blockMined = event.getBlockState().getType().toString();
-        if (configList.contains(blockMined)) {
-            for (int i = 1; i < multiplier.get(); i++) {
-                for (Item item : event.getItems()) {
-                    ItemStack itemStack = item.getItemStack();
-                    Location itemLoc = item.getLocation();
-                    item.getWorld().dropItem(itemLoc, itemStack);
+        if (!placedBlocks.contains(block.getLocation())) {
+            if (configList.contains(blockMined)) {
+                for (int i = 1; i < multiplier.get(); i++) {
+                    for (Item item : event.getItems()) {
+                        ItemStack itemStack = item.getItemStack();
+                        Location itemLoc = item.getLocation();
+                        item.getWorld().dropItem(itemLoc, itemStack);
+                    }
                 }
             }
+        } else {
+            placedBlocks.remove(event.getBlock().getLocation());
         }
     }
 }

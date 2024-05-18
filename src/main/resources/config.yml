@@ -6,3 +6,9 @@ MiningOffhands:
       - IRON_ORE
       - GOLD_ORE
       - COAL_ORE
+      - DIAMOND_BLOCK
+      - EMERALD_BLOCK
+      - IRON_BLOCK
+      - GOLD_BLOCK
+      - COAL_BLOCK
+      - NETHERITE_BLOCK
